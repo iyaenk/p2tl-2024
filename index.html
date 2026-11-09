@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123d70">
+  <meta name="description" content="Peta P2TL 2024 interaktif dari Google My Maps.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>My Maps Explorer</title>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">⌖</span><div><strong>My Maps Explorer</strong><small>Custom map viewer</small></div></div>
+    <div class="top-actions">
+      <button id="installBtn" class="install-btn" hidden>＋ Pasang aplikasi</button>
+      <label class="upload-btn" for="fileInput">＋ Impor KML / KMZ</label>
+      <input id="fileInput" type="file" accept=".kml,.kmz" hidden>
+      <button id="locateBtn" class="icon-btn" title="Lokasi saya">◎</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="intro">
+        <span class="eyebrow">PETA SUMBER</span>
+        <h1>P2TL 2024</h1>
+        <p>Impor data dari Google My Maps untuk menampilkan titik, garis, dan area di peta mandiri.</p>
+      </div>
+
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Cari nama lokasi…">
+        <button id="clearSearch" title="Hapus pencarian">×</button>
+      </div>
+
+      <section class="panel-section">
+        <div class="section-heading"><h2>Data peta</h2><span id="featureCount" class="count">0 fitur</span></div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">⇧</div>
+          <strong>Belum ada data diimpor</strong>
+          <p>Unggah file KML atau KMZ hasil ekspor Google My Maps.</p>
+          <label class="secondary-btn" for="fileInput">Pilih file</label>
+        </div>
+        <div id="layerList" class="layer-list"></div>
+      </section>
+
+      <section class="panel-section results-section">
+        <div class="section-heading"><h2>Hasil pencarian</h2><span id="resultCount" class="count">0</span></div>
+        <div id="results" class="results"><p class="muted">Lokasi akan muncul di sini.</p></div>
+      </section>
+      <footer class="sidebar-footer">
+        <span>Data diproses lokal di browser.</span>
+        <a href="https://www.google.com/maps/d/edit?mid=1LiaDO48x7ff04EzXqobG_OcZS6v22lk&ll=-3.305288345997282%2C114.58757495&z=14" target="_blank" rel="noopener">Buka My Maps asli ↗</a>
+      </footer>
+    </aside>
+
+    <section class="map-area">
+      <div id="map"></div>
+      <div class="map-hint"><span class="pulse"></span><span id="statusText">Menunggu file KML/KMZ</span></div>
+      <div class="map-controls">
+        <button id="zoomIn" title="Perbesar">＋</button>
+        <button id="zoomOut" title="Perkecil">−</button>
+        <button id="resetView" title="Kembali ke area awal">⌂</button>
+      </div>
+      <div class="attribution-note">Peta dasar © OpenStreetMap · OpenFreeMap · MapLibre</div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/togeojson/0.16.0/togeojson.umd.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(console.warn));
+  </script>
+</body>
+</html>
